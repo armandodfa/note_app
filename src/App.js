@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import './App.scss';
+import { Alert } from './components/Alert';
+import { Navbar } from './components/Navbar';
+import { AlertState } from './context/alert/AlertState';
+import { FirebaseState } from './context/firebase/FirebaseState';
+import { About } from './pages/About';
+import { Home } from './pages/Home';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <FirebaseState>
+      <AlertState>
+        <BrowserRouter>
+          <Navbar />
+          <div className="container pt-4">
+            <Alert />
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/about' element={<About />} />
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </AlertState>
+    </FirebaseState>
   );
 }
 
 export default App;
+
